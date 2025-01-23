@@ -18,10 +18,21 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name', 'last_name', 'email', 'age', 
+        'password', 'phone', 'role', 'student_number'
     ];
+
+    public function registrations() {
+        return $this->hasMany(UserFestivalRegistration::class);
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function driver() {
+        return $this->hasOne(Driver::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

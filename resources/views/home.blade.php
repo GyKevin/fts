@@ -8,6 +8,6 @@
 </head>
 <body>
     <a href="{{route('login')}}">login</a>
-    <a href="{{}}"></a>
+    <a href="{{route('register')}}">register</a>
 </body>
 </html>
