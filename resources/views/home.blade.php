@@ -1,3 +1,3 @@
-<x-layout>
+<x-app-layout>
     <h1>homepage</h1>
-</x-layout>
+</x-app-layout>
