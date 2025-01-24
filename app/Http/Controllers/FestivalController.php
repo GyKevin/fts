@@ -12,7 +12,9 @@ class FestivalController extends Controller
      */
     public function index()
     {
-        //
+        $festivals = Festival::query()->orderBy('id', 'desc')->get();
+        // dd($festivals);
+        return view('festival.index', ['festivals'=> $festivals]);
     }
 
     /**
@@ -20,7 +22,7 @@ class FestivalController extends Controller
      */
     public function create()
     {
-        //
+        return 'create';
     }
 
     /**
@@ -36,7 +38,7 @@ class FestivalController extends Controller
      */
     public function show(Festival $festival)
     {
-        //
+        return view('festival.show', ['festival'=> $festival]);
     }
 
     /**
@@ -44,7 +46,7 @@ class FestivalController extends Controller
      */
     public function edit(Festival $festival)
     {
-        //
+        return 'edit';
     }
 
     /**
