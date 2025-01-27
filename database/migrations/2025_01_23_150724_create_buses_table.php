@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->foreignId('festival_id')->constrained()->onDelete('cascade');
             $table->foreignId('driver_id')->nullable()->constrained()->onDelete('set null');
             $table->date('date');
+            $table->string('location');
             $table->dateTime('departure_time');
             $table->dateTime('arrival_time');
             $table->integer('total_seats');

@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use Illuminate\Http\Request;
+use App\Models\UserFestivalRegistration;
+use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\Bus;
 
 class FestivalController extends Controller
 {
@@ -39,6 +44,53 @@ class FestivalController extends Controller
     public function show(Festival $festival)
     {
         return view('festival.show', ['festival'=> $festival]);
+    }
+
+    public function payment(Request $request, Festival $festival)
+{
+    $bus = Bus::findOrFail($request->bus_id);
+    
+    return view('festival.payment', [
+        'festival' => $festival,
+        'bus' => $bus
+    ]);
+}
+
+    public function book (request $request, Festival $festival) {
+        $user = Auth::user();
+    
+        $request->validate([
+            'bus_id' => ['required', 'exists:busses,id']
+        ]);
+
+        $bus = Bus::findOrFail($request->bus_id);
+
+        // Create registration
+        DB::transaction(function () use ($festival, $bus, $request) {
+            // Create registration
+            UserFestivalRegistration::create([
+                'user_id' => Auth::id(),
+                'festival_id' => $festival->id,
+                'bus_id' => $bus->id,
+                'status' => 'confirmed'
+            ]);
+    
+            // Create payment record
+            Payment::create([
+                'user_id' => Auth::id(),
+                'festival_id' => $festival->id,
+                'bus_id' => $bus->id,
+                'amount' => $bus->price,
+                'status' => 'completed',
+                'payment_method' => 'card'
+            ]);
+    
+            // Update available seats
+            $bus->decrement('available_seats');
+        });
+    
+        return redirect()->route('festival.show', $festival)
+            ->with('success', 'Your trip has been booked successfully!');
     }
 
     /**

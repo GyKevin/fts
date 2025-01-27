@@ -8,7 +8,7 @@ class Bus extends Model {
     protected $table = 'busses';
     
     protected $fillable = [
-        'bus_number', 'festival_id', 'driver_id', 'date', 
+        'bus_number', 'festival_id', 'driver_id', 'date', 'location',
         'departure_time', 'arrival_time', 'total_seats', 
         'available_seats', 'price'
     ];
