@@ -46,6 +46,22 @@ class FestivalController extends Controller
         return view('festival.show', ['festival'=> $festival]);
     }
 
+    public function myFestivals()
+{
+    $user = Auth::user(); // Get the authenticated user
+
+    // Fetch the user's festival registrations with the associated festival details
+    $registrations = UserFestivalRegistration::with('festival') // Load the related festival
+        ->where('user_id', $user->id) // Filter for the logged-in user's registrations
+        ->orderBy('created_at', 'desc') // Optional: Order by registration date
+        ->get();
+
+    return view('festival.myFestivals', [
+        'registrations' => $registrations // Pass the registrations to the view
+    ]);
+}
+
+
     public function payment(Request $request, Festival $festival)
 {
     $bus = Bus::findOrFail($request->bus_id);

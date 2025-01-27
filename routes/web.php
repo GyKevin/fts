@@ -21,5 +21,8 @@ Route::resource('festival', FestivalController::class);
 Route::post('/festivals/{festival}/book', [FestivalController::class, 'book'])->name('festival.book');
 Route::post('/festivals/{festival}/payment', [FestivalController::class, 'payment'])
     ->name('festival.payment');
+Route::get('/myfestivals', [FestivalController::class, 'myFestivals'])
+    ->name('festival.myFestivals')
+    ->middleware('auth');
 
 require __DIR__.'/auth.php';

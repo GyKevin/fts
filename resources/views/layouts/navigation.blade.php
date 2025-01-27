@@ -19,8 +19,8 @@
                         {{ __('Festivals') }}
                     </x-nav-link>
                     @auth
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
+                        <x-nav-link :href="route('festival.myFestivals')" :active="request()->routeIs('festival.myFestivals')">
+                            {{ __('Bookings') }}
                         </x-nav-link>
                     @endauth
                 </div>
