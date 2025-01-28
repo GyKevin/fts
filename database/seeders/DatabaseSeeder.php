@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Festival;
 use App\Models\User;
+use App\Models\Driver;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Bus;
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // user seeder
         User::create([
             'id' => 1,
             'first_name' => 'Kevin',
@@ -28,7 +30,20 @@ class DatabaseSeeder extends Seeder
             'student_number' => '123456',
             'points'=> '0',
         ]);
+        User::create([
+            'id' => 2,
+            'first_name' => 'Admin',
+            'last_name'=> 'Admin',
+            'email'=> 'admin@fts.com',
+            'age' => '22',
+            'password' => 'password123',
+            'phone' => '0612345678',
+            'role'=> 'admin',
+            'student_number' => '0',
+            'points'=> '100',
+        ]);
 
+        // festivals seeder
         Festival::create([
             'festival_name' => 'Summer Music Festival',
             'date' => '2025-07-15',
@@ -53,6 +68,7 @@ class DatabaseSeeder extends Seeder
             'max_participants' => 20000
         ]);
 
+        // busses seeder
         Bus::create([
             'bus_number' => 'BUS001',
             'festival_id' => 1,
@@ -82,7 +98,7 @@ class DatabaseSeeder extends Seeder
         Bus::create([
             'bus_number' => 'BUS003',
             'festival_id' => 2,
-            // 'driver_id' => 2,
+            // 'driver_id' => 3,
             'date' => '2025-07-18',
             'location' => 'Amsterdam',
             'departure_time' => '2025-07-18 10:00:00',
@@ -95,7 +111,7 @@ class DatabaseSeeder extends Seeder
         Bus::create([
             'bus_number' => 'BUS004',
             'festival_id' => 3,
-            // 'driver_id' => 2,
+            // 'driver_id' => 3,
             'date' => '2025-06-26',
             'location' => 'Rotterdam',
             'departure_time' => '2025-06-26 10:00:00',
@@ -103,6 +119,28 @@ class DatabaseSeeder extends Seeder
             'total_seats' => 50,
             'available_seats' => 50,
             'price' => 30.00,
+        ]);
+
+        // drivers seeder
+        Driver::create([
+            'id' => 1,
+            'license_number' => '123456',
+            'license_expiry' => '2028-01-01',
+
+        ]);
+
+        Driver::create([
+            'id' => 2,
+            'license_number' => '2345345',
+            'license_expiry' => '2028-01-01',
+            
+        ]);
+
+        Driver::create([
+            'id' => 3,
+            'license_number' => '3453454',
+            'license_expiry' => '2028-01-01',
+            
         ]);
     }
 }
