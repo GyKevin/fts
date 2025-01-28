@@ -14,6 +14,12 @@
         <input type="hidden" name="bus_id" value="{{ $bus->id }}">
         <!-- Add payment fields here -->
         <p class="text-white">Price: € {{ $bus->price }}</p>
+        @if($user->points >= 20)
+            <div class="text-white">
+                <input type="checkbox" id="points" name="use_points" value="1">
+                <label for="points">Use 20 points for a 15% discount?</label>
+            </div>
+        @endif
         <button type="submit" class="text-white">Pay Now</button>
     </form>
 </x-app-layout>

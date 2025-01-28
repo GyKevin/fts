@@ -65,27 +65,35 @@ class FestivalController extends Controller
 
     public function payment(Request $request, Festival $festival)
 {
+    $user = Auth::user();
     $bus = Bus::findOrFail($request->bus_id);
-    // $bus = new Bus;
-    // dd($bus->get());
     
     return view('festival.payment', [
         'festival' => $festival,
-        'bus' => $bus
+        'bus' => $bus,
+        'user' => $user
     ]);
 }
 
     public function book (request $request, Festival $festival) {
         $user = Auth::user();
-    
-        $request->validate([
-            'bus_id' => ['required', 'exists:buses,id']
-        ]);
 
         $bus = Bus::findOrFail($request->bus_id);
+    
+        $request->validate([
+            'bus_id' => ['required', 'exists:buses,id'],
+            'points' => ['nullable', 'boolean']
+        ]);
 
-        // Create registration
-        DB::transaction(function () use ($festival, $bus, $request, $user) {
+        // Check if the user has enough points to use
+        $price = $bus->price;
+        $usePoints = $request->has('use_points') && $request->use_points == 1;
+
+        if ($usePoints && $user->points >= 20) {
+            $price = $bus->price*0.85;
+        }
+
+        DB::transaction(function () use ($festival, $bus, $request, $user, $price, $usePoints) {
             // Create registration
             UserFestivalRegistration::create([
                 'user_id' => Auth::id(),
@@ -99,7 +107,7 @@ class FestivalController extends Controller
                 'user_id' => Auth::id(),
                 'festival_id' => $festival->id,
                 'bus_id' => $bus->id,
-                'amount' => $bus->price,
+                'amount' => $price,
                 'status' => 'completed',
                 'payment_method' => 'card'
             ]);
@@ -109,6 +117,10 @@ class FestivalController extends Controller
 
             // give the user 10 points
             $user->increment('points', 10);
+
+            if( $usePoints && $user->points >= 20) {
+                $user->decrement('points', 20);
+            }
         });
     
         return redirect()->route('festival.show', $festival)

@@ -31,10 +31,26 @@ class DatabaseSeeder extends Seeder
 
         Festival::create([
             'festival_name' => 'Summer Music Festival',
-            'date' => '2024-07-15',
+            'date' => '2025-07-15',
             'location' => 'Amsterdam',
             'description' => 'Annual summer music event',
             'max_participants' => 200
+        ]);
+
+        Festival::create([
+            'festival_name' => 'Tomorrowland',
+            'date' => '2025-07-18',
+            'location' => 'Boom',
+            'description' => 'Tomorrowland 2025',
+            'max_participants' => 20000
+        ]);
+
+        Festival::create([
+            'festival_name' => 'Defqon',
+            'date' => '2025-06-26',
+            'location' => 'Biddinghuizen',
+            'description' => 'Defqon 2025',
+            'max_participants' => 20000
         ]);
 
         Bus::create([
@@ -61,6 +77,32 @@ class DatabaseSeeder extends Seeder
             'total_seats' => 60,
             'available_seats' => 60,
             'price' => 20.00,
+        ]);
+
+        Bus::create([
+            'bus_number' => 'BUS003',
+            'festival_id' => 2,
+            // 'driver_id' => 2,
+            'date' => '2025-07-18',
+            'location' => 'Amsterdam',
+            'departure_time' => '2025-07-18 10:00:00',
+            'arrival_time' => '2025-07-18 13:00:00',
+            'total_seats' => 40,
+            'available_seats' => 40,
+            'price' => 40.00,
+        ]);
+
+        Bus::create([
+            'bus_number' => 'BUS004',
+            'festival_id' => 3,
+            // 'driver_id' => 2,
+            'date' => '2025-06-26',
+            'location' => 'Rotterdam',
+            'departure_time' => '2025-06-26 10:00:00',
+            'arrival_time' => '2025-06-26 13:00:00',
+            'total_seats' => 50,
+            'available_seats' => 50,
+            'price' => 30.00,
         ]);
     }
 }
