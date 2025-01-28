@@ -23,6 +23,11 @@
                             {{ __('Bookings') }}
                         </x-nav-link>
                     @endauth
+                    @if(Auth::check() && Auth::user()->role == 'admin')
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -24,5 +25,8 @@ Route::post('/festivals/{festival}/payment', [FestivalController::class, 'paymen
 Route::get('/myfestivals', [FestivalController::class, 'myFestivals'])
     ->name('festival.myFestivals')
     ->middleware('auth');
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    });
 
 require __DIR__.'/auth.php';
