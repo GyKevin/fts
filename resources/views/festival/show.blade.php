@@ -9,11 +9,11 @@
     <br>
     
     @if (auth()->check())
-        @if($festival->busses->count() > 0)
+        @if($festival->buses->count() > 0)
             <form method="POST" action="{{ route('festival.payment', $festival) }}">
                 @csrf
                 <select name="bus_id">
-                    @foreach($festival->busses as $bus)
+                    @foreach($festival->buses as $bus)
                         <option value="{{ $bus->id }}">
                             Departure from: {{ $bus->location }},
                             {{$bus->departure_time}}

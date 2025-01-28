@@ -65,6 +65,8 @@ class FestivalController extends Controller
     public function payment(Request $request, Festival $festival)
 {
     $bus = Bus::findOrFail($request->bus_id);
+    // $bus = new Bus;
+    // dd($bus->get());
     
     return view('festival.payment', [
         'festival' => $festival,
@@ -76,13 +78,13 @@ class FestivalController extends Controller
         $user = Auth::user();
     
         $request->validate([
-            'bus_id' => ['required', 'exists:busses,id']
+            'bus_id' => ['required', 'exists:buses,id']
         ]);
 
         $bus = Bus::findOrFail($request->bus_id);
 
         // Create registration
-        DB::transaction(function () use ($festival, $bus, $request) {
+        DB::transaction(function () use ($festival, $bus, $request, $user) {
             // Create registration
             UserFestivalRegistration::create([
                 'user_id' => Auth::id(),
@@ -103,6 +105,9 @@ class FestivalController extends Controller
     
             // Update available seats
             $bus->decrement('available_seats');
+
+            // give the user 10 points
+            $user->addPoints(10);
         });
     
         return redirect()->route('festival.show', $festival)

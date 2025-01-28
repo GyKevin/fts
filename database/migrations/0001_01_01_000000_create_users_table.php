@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->enum('role', ['student', 'admin', 'driver'])->default('student');
             $table->string('student_number')->nullable()->unique();
+            // $table->integer('points')->default(0);
             $table->timestamps();
         });
 

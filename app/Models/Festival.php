@@ -13,7 +13,7 @@ class Festival extends Model {
         'description', 'max_participants', 'registration_deadline'
     ];
 
-    public function busses() {
+    public function buses() {
         return $this->hasMany(Bus::class);
     }
 
