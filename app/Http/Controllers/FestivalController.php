@@ -47,19 +47,20 @@ class FestivalController extends Controller
     }
 
     public function myFestivals()
-{
-    $user = Auth::user(); // Get the authenticated user
+    {
+        $user = Auth::user(); 
 
-    // Fetch the user's festival registrations with the associated festival details
-    $registrations = UserFestivalRegistration::with('festival') // Load the related festival
-        ->where('user_id', $user->id) // Filter for the logged-in user's registrations
-        ->orderBy('created_at', 'desc') // Optional: Order by registration date
-        ->get();
+        
+        $registrations = UserFestivalRegistration::with('festival')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    return view('festival.myFestivals', [
-        'registrations' => $registrations // Pass the registrations to the view
-    ]);
-}
+        return view('festival.myFestivals', [
+            'registrations' => $registrations,
+            'user'=> $user
+        ]);
+    }
 
 
     public function payment(Request $request, Festival $festival)
@@ -107,7 +108,7 @@ class FestivalController extends Controller
             $bus->decrement('available_seats');
 
             // give the user 10 points
-            $user->addPoints(10);
+            $user->increment('points', 10);
         });
     
         return redirect()->route('festival.show', $festival)

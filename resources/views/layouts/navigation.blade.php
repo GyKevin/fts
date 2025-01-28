@@ -31,6 +31,12 @@
                 
             
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+                {{-- show points --}}
+                <div>
+                    <p class="text-gray-200">{{Auth::user()->points}} Points</p>
+                </div>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -63,8 +69,9 @@
                 </x-dropdown>
             </div>
             @else
-            <div>
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <a href="{{route('login')}}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:text-gray-700 dark:focus:text-gray-300 focus:outline-none transition duration-150 ease-in-out">Login</a>
+                <p class="text-gray-400 mx-1">/</p>
                 <a href="{{route('register')}}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:text-gray-700 dark:focus:text-gray-300 focus:outline-none transition duration-150 ease-in-out">Register</a>
             </div>
             @endauth
