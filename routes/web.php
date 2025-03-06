@@ -25,8 +25,14 @@ Route::post('/festivals/{festival}/payment', [FestivalController::class, 'paymen
 Route::get('/myfestivals', [FestivalController::class, 'myFestivals'])
     ->name('festival.myFestivals')
     ->middleware('auth');
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    });
+    
+// admin dashboard
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+Route::get('/admin/festivals', [AdminController::class, 'festivals'])->name('admin.festivals');
+Route::get('/admin/busses', [AdminController::class, 'busses'])->name('admin.busses');
 
 require __DIR__.'/auth.php';
