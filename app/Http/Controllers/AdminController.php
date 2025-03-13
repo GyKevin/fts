@@ -44,6 +44,28 @@ class AdminController extends Controller
 
         return redirect()->route("admin.festivals")->with("success", "Festival deleted successfully");
     }
+    public function storeFestival(Request $request) {
+        // $request->validate([
+        //     "festival_name" => "required",
+        //     "festival_location" => "required",
+        //     "festival_date" => "required",
+        //     "festival_capacity" => "required",
+        //     "festival_description" => "required",
+        // ]);
+        $validateData = $request->validate([
+            "festival_name" => "required|string",
+            "date" => "required|date",
+            "location" => "required|string",
+            "description" => "nullable|string",
+            "max_participants" => "nullable|integer|min:1",
+            "registration_deadline" => "nullable|date",
+        ]);
+
+        // dd($validateData);
+        \App\Models\Festival::create($validateData);
+
+        return redirect()->route("admin.festivals")->with("success", "Festival created successfully");
+    }
 
     public function busses() {
         $busses = \App\Models\Bus::all();
