@@ -18,10 +18,31 @@ class AdminController extends Controller
         return view("admin.users", compact("users"));
     }
 
+    //Festivals
     public function festivals() {
         $festivals = \App\Models\Festival::all();
 
         return view("admin.festivals", compact("festivals"));
+    }
+    public function editFestival(\App\Models\Festival $festival) {
+        return view("admin.edit.festivals", compact("festival"));
+    }
+    public function updateFestival(\App\Models\Festival $festival, Request $request) {
+        $request->validate([
+            "festival_name" => "required",
+            "festival_location" => "required",
+            "festival_date" => "required",
+            "festival_capacity" => "required",
+            "festival_description" => "required",
+        ]);
+        $festival->update(request()->all());
+
+        return redirect()->route("admin.festivals")->with("success", "Festival updated successfully");
+    }
+    public function deleteFestival(\App\Models\Festival $festival) {
+        $festival->delete();
+
+        return redirect()->route("admin.festivals")->with("success", "Festival deleted successfully");
     }
 
     public function busses() {

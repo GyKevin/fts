@@ -35,4 +35,9 @@ Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users
 Route::get('/admin/festivals', [AdminController::class, 'festivals'])->name('admin.festivals');
 Route::get('/admin/busses', [AdminController::class, 'busses'])->name('admin.busses');
 
+//admin edit folder
+Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFestival'])->name('admin.edit.festivals');
+Route::put('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.update.festivals');
+Route::delete('/admin/festivals/{festival}', [AdminController::class, 'deleteFestival'])->name('admin.delete.festivals');
+
 require __DIR__.'/auth.php';

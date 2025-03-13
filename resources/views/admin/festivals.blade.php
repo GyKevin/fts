@@ -1,5 +1,5 @@
 <x-app-layout>
 @foreach ($festivals as $festival)
-    <p>{{$festival->festival_name}}</p>
+    <a href="{{route('admin.edit.festivals', $festival->id)}}">{{$festival->festival_name}}</a>
 @endforeach
 </x-app-layout>
