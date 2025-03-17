@@ -40,5 +40,11 @@ Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFes
 Route::put('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.update.festivals');
 Route::delete('/admin/festivals/{festival}', [AdminController::class, 'deleteFestival'])->name('admin.delete.festivals');
 Route::post('/admin/festivals', [AdminController::class, 'storeFestival'])->name('admin.store.festivals');
+
+// admin add folder
 Route::get('/admin/add/festivals', function () { return view('admin.add.festivals');})->name('admin.add.festivals');
 require __DIR__.'/auth.php';
+
+Route::get('/admin/add/busses', function () { return view('admin.add.busses');})->name('admin.add.busses');
+require __DIR__.'/auth.php';
+Route::post('/admin/busses', [AdminController::class, 'storeBus'])->name('admin.store.busses');

@@ -67,10 +67,30 @@ class AdminController extends Controller
         return redirect()->route("admin.festivals")->with("success", "Festival created successfully");
     }
 
+    // busses
     public function busses() {
         $busses = \App\Models\Bus::all();
         $drivers = \App\Models\Driver::all();
+        $festivals = \App\Models\Festival::all();
 
-        return view("admin.busses", compact("busses", "drivers"));
+        return view("admin.busses", compact("busses", "drivers", "festivals"));
+    }
+    public function storeBus(Request $request) {
+        $validateData = $request->validate([
+            "bus_number" => "required|string",
+            "festival_id" => "required|integer|exists:festivals,id",
+            "driver_id" => "nullable|integer",
+            "date" => "required|date",
+            "location" => "required|string",
+            "departure_time" => "required|datetime",
+            "arrival_time" => "required|datetime",
+            "total_seats" => "required|integer",
+            "avilable_seats" => "required|integer",
+            "price" => "required|numeric",
+        ]);
+
+        \App\Models\Bus::create($validateData);
+
+        return redirect()->route("admin.busses")->with("success", "Bus created successfully");
     }
 }
