@@ -12,10 +12,28 @@ class AdminController extends Controller
         return view("admin.dashboard");
     }
 
+    //Users
     public function users() {
         $users = \App\Models\User::all();
 
         return view("admin.users", compact("users"));
+    }
+    public function storeUser(Request $request) {
+        $validateData = $request->validate([
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "email" => "required|string",
+            "age" => "nullable|integer",
+            "password" => "required|string",
+            "phone" => "nullable|string",
+            "role" => "required|string",
+            "student_number" => "required|string",
+            "points" => "required|integer"
+        ]);
+
+        \App\Models\User::create($validateData);
+
+        return redirect()->route("admin.users")->with("success", "User created successfully");
     }
 
     //Drivers

@@ -57,3 +57,8 @@ Route::get('/admin/add/busses', [AdminController::class, 'addBus'])->name('admin
 Route::get('/admin/add/drivers', function () { return view('admin.add.drivers');})->name('admin.add.drivers');
 require __DIR__.'/auth.php';
 Route::post('/admin/drivers', [AdminController::class, 'storeDriver'])->name('admin.store.drivers');
+
+// Add users
+Route::get('/admin/add/users', function () { return view('admin.add.users');})->name('admin.add.users');
+require __DIR__.'/auth.php';
+Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.store.users');

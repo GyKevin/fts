@@ -7,4 +7,5 @@
     <a href="{{route('admin.add.festivals')}}">Add Festival</a>
     <a href="{{route('admin.add.busses')}}">Add Bus</a>
     <a href="{{route('admin.add.drivers')}}">Add Drivers</a>
+    <a href="{{route('admin.add.users')}}">Add Users</a>
 </x-app-layout>
