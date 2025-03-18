@@ -82,15 +82,21 @@ class AdminController extends Controller
             "driver_id" => "nullable|integer",
             "date" => "required|date",
             "location" => "required|string",
-            "departure_time" => "required|datetime",
-            "arrival_time" => "required|datetime",
+            "departure_time" => "required|date",
+            "arrival_time" => "required|date",
             "total_seats" => "required|integer",
-            "avilable_seats" => "required|integer",
+            "available_seats" => "required|integer",
             "price" => "required|numeric",
         ]);
 
         \App\Models\Bus::create($validateData);
 
         return redirect()->route("admin.busses")->with("success", "Bus created successfully");
+    }
+    public function addBus() {
+        $festivals = \App\Models\Festival::all();
+        $drivers = \App\Models\Driver::all();
+    
+        return view('admin.add.busses', compact('festivals', 'drivers'));
     }
 }

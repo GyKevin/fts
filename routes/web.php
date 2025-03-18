@@ -48,3 +48,4 @@ require __DIR__.'/auth.php';
 Route::get('/admin/add/busses', function () { return view('admin.add.busses');})->name('admin.add.busses');
 require __DIR__.'/auth.php';
 Route::post('/admin/busses', [AdminController::class, 'storeBus'])->name('admin.store.busses');
+Route::get('/admin/add/busses', [AdminController::class, 'addBus'])->name('admin.add.busses');
