@@ -18,6 +18,30 @@ class AdminController extends Controller
 
         return view("admin.users", compact("users"));
     }
+    public function editUser(\App\Models\User $user) {
+        return view("admin.edit.users", compact("user"));
+    }
+    public function updateUser(\App\Models\User $user, Request $request) {
+        $request->validate([
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "email" => "required|string",
+            "age" => "required|integer",
+            "password" => "required|string",
+            "phone" => "required|string",
+            "role" => "required|string",
+            "student_number" => "required|string",
+            "points" => "required|integer"
+        ]);
+        $user->update(request()->all());
+
+        return redirect()->route("admin.users")->with("success", "User updated successfully");
+    }
+    public function deleteUser(\App\Models\User $user) {
+        $user->delete();
+
+        return redirect()->route("admin.users")->with("success", "User deleted successfully");
+    }
     public function storeUser(Request $request) {
         $validateData = $request->validate([
             "first_name" => "required|string",

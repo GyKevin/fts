@@ -42,6 +42,11 @@ Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFes
 Route::put('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.update.festivals');
 Route::delete('/admin/festivals/{festival}', [AdminController::class, 'deleteFestival'])->name('admin.delete.festivals');
 
+// edit/delete users
+Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.edit.users');
+Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.update.users');
+Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.delete.users');
+
 // Add data
 // Add festivals
 Route::post('/admin/festivals', [AdminController::class, 'storeFestival'])->name('admin.store.festivals');
