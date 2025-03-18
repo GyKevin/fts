@@ -31,21 +31,29 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
+// Edit and delete data
 Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
 Route::get('/admin/festivals', [AdminController::class, 'festivals'])->name('admin.festivals');
 Route::get('/admin/busses', [AdminController::class, 'busses'])->name('admin.busses');
+Route::get('/admin/drivers', [AdminController::class, 'drivers'])->name('admin.drivers');
 
-//admin edit folder
+// edit/delete festivals
 Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFestival'])->name('admin.edit.festivals');
 Route::put('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.update.festivals');
 Route::delete('/admin/festivals/{festival}', [AdminController::class, 'deleteFestival'])->name('admin.delete.festivals');
-Route::post('/admin/festivals', [AdminController::class, 'storeFestival'])->name('admin.store.festivals');
 
-// admin add folder
+// Add data
+// Add festivals
+Route::post('/admin/festivals', [AdminController::class, 'storeFestival'])->name('admin.store.festivals');
 Route::get('/admin/add/festivals', function () { return view('admin.add.festivals');})->name('admin.add.festivals');
 require __DIR__.'/auth.php';
-
+// Add busses
 Route::get('/admin/add/busses', function () { return view('admin.add.busses');})->name('admin.add.busses');
 require __DIR__.'/auth.php';
 Route::post('/admin/busses', [AdminController::class, 'storeBus'])->name('admin.store.busses');
 Route::get('/admin/add/busses', [AdminController::class, 'addBus'])->name('admin.add.busses');
+
+// Add drivers
+Route::get('/admin/add/drivers', function () { return view('admin.add.drivers');})->name('admin.add.drivers');
+require __DIR__.'/auth.php';
+Route::post('/admin/drivers', [AdminController::class, 'storeDriver'])->name('admin.store.drivers');

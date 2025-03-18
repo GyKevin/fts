@@ -18,6 +18,23 @@ class AdminController extends Controller
         return view("admin.users", compact("users"));
     }
 
+    //Drivers
+    public function drivers() {
+        $drivers = \App\Models\Driver::all();
+
+        return view("admin.drivers", compact("drivers"));
+    }
+    public function storeDriver(Request $request) {
+        $validateData = $request->validate([
+            "license_number" => "required|string",
+            "license_expiry" => "required|date",
+        ]);
+
+        \App\Models\Driver::create($validateData);
+
+        return redirect()->route("admin.drivers")->with("success", "Driver created successfully");
+    }
+
     //Festivals
     public function festivals() {
         $festivals = \App\Models\Festival::all();
@@ -45,13 +62,6 @@ class AdminController extends Controller
         return redirect()->route("admin.festivals")->with("success", "Festival deleted successfully");
     }
     public function storeFestival(Request $request) {
-        // $request->validate([
-        //     "festival_name" => "required",
-        //     "festival_location" => "required",
-        //     "festival_date" => "required",
-        //     "festival_capacity" => "required",
-        //     "festival_description" => "required",
-        // ]);
         $validateData = $request->validate([
             "festival_name" => "required|string",
             "date" => "required|date",
