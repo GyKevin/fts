@@ -66,6 +66,23 @@ class AdminController extends Controller
 
         return view("admin.drivers", compact("drivers"));
     }
+    public function editDriver(\App\Models\Driver $driver) {
+        return view("admin.edit.drivers", compact("driver"));
+    }
+    public function updateDriver(\App\Models\Driver $driver, Request $request) {
+        $request->validate([
+            "license_number" => "required|string",
+            "license_expiry" => "required|date",
+        ]);
+        $driver->update(request()->all());
+
+        return redirect()->route("admin.drivers")->with("success", "Driver updated successfully");
+    }
+    public function deleteDriver(\App\Models\Driver $driver) {
+        $driver->delete();
+
+        return redirect()->route("admin.drivers")->with("success", "Driver deleted successfully");
+    }
     public function storeDriver(Request $request) {
         $validateData = $request->validate([
             "license_number" => "required|string",
@@ -126,6 +143,34 @@ class AdminController extends Controller
         $festivals = \App\Models\Festival::all();
 
         return view("admin.busses", compact("busses", "drivers", "festivals"));
+    }
+    public function editBus(\App\Models\Bus $bus) {
+        $drivers = \App\Models\Driver::all();
+        $festivals = \App\Models\Festival::all();
+
+        return view("admin.edit.busses", compact("bus", "drivers", "festivals"));
+    }
+    public function updateBus(\App\Models\Bus $bus, Request $request) {
+        $request->validate([
+            "bus_number" => "required|string",
+            "festival_id" => "required|integer|exists:festivals,id",
+            "driver_id" => "nullable|integer",
+            "date" => "required|date",
+            "location" => "required|string",
+            "departure_time" => "required|date",
+            "arrival_time" => "required|date",
+            "total_seats" => "required|integer",
+            "available_seats" => "required|integer",
+            "price" => "required|numeric",
+        ]);
+        $bus->update(request()->all());
+
+        return redirect()->route("admin.busses")->with("success", "Bus updated successfully");
+    }
+    public function deleteBus(\App\Models\Bus $bus) {
+        $bus->delete();
+
+        return redirect()->route("admin.busses")->with("success", "Bus deleted successfully");
     }
     public function storeBus(Request $request) {
         $validateData = $request->validate([

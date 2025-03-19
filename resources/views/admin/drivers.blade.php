@@ -9,7 +9,7 @@
         <tbody>
             @foreach($drivers as $driver)
                 <tr>
-                    <td>{{$driver->id}}</td>
+                    <td><a href="{{route('admin.edit.drivers', $driver->id)}}">{{$driver->id}}</a></td>
                     <td>{{$driver->license_number}}</td>
                     <td>{{$driver->license_expiry}}</td>
                 </tr>

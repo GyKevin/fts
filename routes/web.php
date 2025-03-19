@@ -47,6 +47,16 @@ Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->na
 Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.update.users');
 Route::delete('/admin/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.delete.users');
 
+// edit/delete busses
+Route::get('/admin/busses/{bus}/edit', [AdminController::class, 'editBus'])->name('admin.edit.busses');
+Route::put('/admin/busses/{bus}', [AdminController::class, 'updateBus'])->name('admin.update.busses');
+Route::delete('/admin/busses/{bus}', [AdminController::class, 'deleteBus'])->name('admin.delete.busses');
+
+// edit/delete drivers
+Route::get('/admin/drivers/{driver}/edit', [AdminController::class, 'editDriver'])->name('admin.edit.drivers');
+Route::put('/admin/drivers/{driver}', [AdminController::class, 'updateDriver'])->name('admin.update.drivers');
+Route::delete('/admin/drivers/{driver}', [AdminController::class, 'deleteDriver'])->name('admin.delete.drivers');
+
 // Add data
 // Add festivals
 Route::post('/admin/festivals', [AdminController::class, 'storeFestival'])->name('admin.store.festivals');
