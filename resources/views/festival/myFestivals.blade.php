@@ -1,15 +1,4 @@
 <x-app-layout>
-    {{-- <div class="text-white">
-        <h1>My bookings:</h1>
-        @foreach ($registrations as $registration)
-            <div class="text-white">
-                <h3>Festival: {{$registration->festival->festival_name}}</h3>
-
-            </div>
-            
-        @endforeach
-    </div> --}}
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('My Bookings') }}
@@ -27,7 +16,6 @@
                     <p class="text-gray-500">{{$registration->festival->date}} - {{$registration->bus->location}}</p>
     
                     {{-- desc --}}
-                    {{-- <p class="text-gray-400 line-clamp-2">{{$registration->festival->description}}</p> --}}
                     <p class="text-gray-400">Departure: {{$registration->bus->departure_time}}</p>
                     <p class="text-gray-400">Arrival: {{$registration->bus->arrival_time}}</p>
                     <p class="text-gray-400">Registered on: {{$registration->registration_date}}</p>

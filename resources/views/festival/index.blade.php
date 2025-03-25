@@ -6,8 +6,8 @@
 </x-slot>
 <div class="flex flex-wrap">
     @foreach ($festivals as $festival)
-        <div class="bg-gray-800 text-white rounded-xl w-1/4 h-96 m-4">
-            <div class="rounded-t-xl h-64 overflow-hidden">
+        <div class="bg-gray-800 text-white rounded-xl w-1/4 h-96 m-4 drop-shadow-lg">
+            <div class="rounded-t-xl h-64 overflow-hidden border-b-2 border-gray-600">
                 <img class="rounded-t-xl w-full h-full object-cover" src="{{ asset('storage/img/placeholder.jpg') }}" alt="Description">
             </div>
             <div class="text-gray-200 p-4">
