@@ -106,10 +106,10 @@ class AdminController extends Controller
     public function updateFestival(\App\Models\Festival $festival, Request $request) {
         $request->validate([
             "festival_name" => "required",
-            "festival_location" => "required",
-            "festival_date" => "required",
-            "festival_capacity" => "required",
-            "festival_description" => "required",
+            "location" => "required",
+            "date" => "required",
+            "max_participants" => "required",
+            "description" => "required",
         ]);
         $festival->update(request()->all());
 

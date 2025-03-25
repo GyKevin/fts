@@ -32,7 +32,7 @@
         <label for="password">Password</label>
         <input type="text" name="password" value="{{$user->password}}" required>
 
-        <input class="bg-gray-600 mt-3 rounded-md h-10 hover:bg-gray-500 hover:text-gray-300 transition-all cursor-pointer"" type="submit" value="Submit">
+        <input class="bg-gray-600 mt-3 rounded-md h-10 hover:bg-gray-500 hover:text-gray-300 transition-all cursor-pointer" type="submit" value="Submit">
     </form>
     <form action="{{route('admin.delete.users', $user->id)}}" method="post" class="flex flex-col text-red-400">
         @csrf

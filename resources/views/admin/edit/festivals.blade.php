@@ -8,17 +8,18 @@
                     <label for="festival_name">Festival Name</label>
                     <input type="text" name="festival_name" value="{{$festival->festival_name}}">
 
-                    <label for="festival_date">Festival Date</label>
-                    <input type="text" name="festival_date" value="{{$festival->date}}">
+                    <label for="date">Festival Date</label>
+                    <input type="text" name="date" value="{{$festival->date}}">
 
-                    <label for="festival_location">Festival Location</label>
-                    <input type="text" name="festival_location" value="{{$festival->location}}">
+                    <label for="location">Festival Location</label>
+                    <input type="text" name="location" value="{{$festival->location}}">
 
-                    <label for="festival_capacity">Festival Capacity</label>
-                    <input type="text" name="festival_capacity" value="{{$festival->max_participants}}">
+                    <label for="max_participants">Festival Capacity</label>
+                    <input type="text" name="max_participants" value="{{$festival->max_participants}}">
 
-                    <label for="festival_description">Festival Description</label>
-                    <input type="text" name="festival_description" value="{{$festival->description}}">
+                    <label for="description">Festival Description</label>
+                    {{-- <input type="text" name="description" value="{{$festival->description}}"> --}}
+                    <textarea name="description"">{{$festival->description}}</textarea>
                     
                     <input class="bg-gray-600 mt-3 rounded-md h-10 hover:bg-gray-500 hover:text-grey-300 transition-all cursor-pointer"" type="submit" value="Update">
                 </form>

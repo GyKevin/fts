@@ -1,7 +1,26 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Festivals') }}
+        </h2>
+</x-slot>
+<div class="flex flex-wrap">
     @foreach ($festivals as $festival)
-        <div>
-            <a class="text-white" href="{{route('festival.show', $festival)}}">{{$festival->festival_name}}</a>
+        <div class="bg-gray-800 text-white rounded-xl w-1/4 h-96 m-4">
+            <div class="rounded-t-xl h-64 overflow-hidden">
+                <img class="rounded-t-xl w-full h-full object-cover" src="{{ asset('storage/img/placeholder.jpg') }}" alt="Description">
+            </div>
+            <div class="text-gray-200 p-4">
+                <a href="{{route('festival.show', $festival)}}">
+                    <h2 class="font-bold text-xl">{{$festival->festival_name}}</h2>
+                </a>
+                {{-- date & location --}}
+                <p class="text-gray-500">{{$festival->date}} - {{$festival->location}}</p>
+
+                {{-- desc --}}
+                <p class="text-gray-400 line-clamp-2">{{$festival->description}}</p>
+            </div>
         </div>
     @endforeach
+</div>
 </x-app-layout>
