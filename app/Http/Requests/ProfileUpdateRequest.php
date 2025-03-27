@@ -30,4 +30,10 @@ class ProfileUpdateRequest extends FormRequest
             'phone' => ['required', 'string', 'max:255'],
         ];
     }
+    protected function prepareForValidation()
+{
+    $this->merge([
+        'phone' => preg_replace('/[^0-9+]/', '', $this->phone),
+    ]);
+}
 }

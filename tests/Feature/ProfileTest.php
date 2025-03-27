@@ -10,6 +10,8 @@ class ProfileTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected string $password = 'Password123!';
+
     public function test_profile_page_is_displayed(): void
     {
         $user = User::factory()->create();
@@ -19,6 +21,7 @@ class ProfileTest extends TestCase
             ->get('/profile');
 
         $response->assertOk();
+        $response->assertSee($user->email);
     }
 
     public function test_profile_information_can_be_updated(): void
@@ -28,8 +31,11 @@ class ProfileTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
-                'name' => 'Test User',
-                'email' => 'test@example.com',
+                'first_name' => 'Updated',
+                'last_name' => 'Name',
+                'email' => 'updated@example.com',
+                'student_number' => '87654321',
+                'phone' => '0612345678',
             ]);
 
         $response
@@ -38,20 +44,28 @@ class ProfileTest extends TestCase
 
         $user->refresh();
 
-        $this->assertSame('Test User', $user->name);
-        $this->assertSame('test@example.com', $user->email);
+        $this->assertSame('Updated', $user->first_name);
+        $this->assertSame('Name', $user->last_name);
+        $this->assertSame('updated@example.com', $user->email);
+        $this->assertSame('87654321', $user->student_number);
+        $this->assertSame('0612345678', $user->phone);
         $this->assertNull($user->email_verified_at);
     }
 
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
-                'name' => 'Test User',
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
                 'email' => $user->email,
+                'student_number' => $user->student_number,
+                'phone' => $user->phone,
             ]);
 
         $response
@@ -68,7 +82,7 @@ class ProfileTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->delete('/profile', [
-                'password' => 'password',
+                'password' => $this->password,
             ]);
 
         $response
