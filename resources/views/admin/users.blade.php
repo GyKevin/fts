@@ -10,6 +10,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Role</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Reservations</th>
                         </tr>
                     </thead>
                     <tbody class="bg-gray-800 divide-y divide-gray-700">
@@ -21,6 +22,9 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{$user->first_name}} {{$user->last_name}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{$user->email}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{$user->role}}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                    <a href="{{ route('admin.user.registrations', $user) }}">Reservations</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

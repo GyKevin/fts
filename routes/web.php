@@ -45,11 +45,17 @@ Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users
 Route::get('/admin/festivals', [AdminController::class, 'festivals'])->name('admin.festivals');
 Route::get('/admin/busses', [AdminController::class, 'busses'])->name('admin.busses');
 Route::get('/admin/drivers', [AdminController::class, 'drivers'])->name('admin.drivers');
+Route::get('/admin/registrations', [AdminController::class, 'registrations'])->name('admin.registrations');
+Route::get('/admin/users/{user}/registrations', [AdminController::class, 'userRegistrations'])
+    ->name('admin.user.registrations');
 
 // edit/delete festivals
 Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFestival'])->name('admin.edit.festivals');
 Route::put('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.update.festivals');
 Route::delete('/admin/festivals/{festival}', [AdminController::class, 'deleteFestival'])->name('admin.delete.festivals');
+Route::get('/admin/registrations/{registration}/edit', [AdminController::class, 'editRegistration'])->name('admin.edit.registrations');
+Route::put('/admin/registrations/{registration}', [AdminController::class, 'updateRegistration'])->name('admin.update.registrations');
+Route::delete('/admin/registrations/{registration}', [AdminController::class, 'deleteRegistration'])->name('admin.delete.registrations');
 
 // edit/delete users
 Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.edit.users');

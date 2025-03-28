@@ -15,8 +15,9 @@ class AdminController extends Controller
     //Users
     public function users() {
         $users = \App\Models\User::all();
+        $registrations = \App\Models\UserFestivalRegistration::all();
 
-        return view("admin.users", compact("users"));
+        return view("admin.users", compact("users", "registrations"));
     }
     public function editUser(\App\Models\User $user) {
         return view("admin.edit.users", compact("user"));
@@ -58,6 +59,56 @@ class AdminController extends Controller
         \App\Models\User::create($validateData);
 
         return redirect()->route("admin.users")->with("success", "User created successfully");
+    }
+
+    //User Festival Registration
+    // Fetch all reservations for a specific user
+    public function userRegistrations(\App\Models\User $user)
+    {
+        $registrations = $user->festivalRegistrations()
+            ->with(['festival', 'bus.driver'])
+            ->get();
+
+        return view('admin.edit.registrations', compact('user', 'registrations'));
+    }
+    public function registrations() 
+    {
+        $users = \App\Models\User::all();
+        $registrations = \App\Models\UserFestivalRegistration::all();
+        return view("admin.registrations", compact("users", "registrations"));
+    }
+    public function editRegistration(\App\Models\UserFestivalRegistration $registration)
+    {
+        // Eager load all necessary relationships
+        $registration->load([
+            'user', // This loads the user relationship
+            'festival', 
+            'bus.driver'
+        ]);
+        
+        // Use $registration->user instead of undefined $user
+        return view('admin.edit.registrations', compact('registration'));
+    }
+    public function updateRegistration(\App\Models\UserFestivalRegistration $registration, Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|integer|exists:users,id',
+            'festival_id' => 'required|integer|exists:festivals,id',
+            'status' => 'required|string|in:pending,confirmed,cancelled',
+        ]);
+
+        $registration->update([
+            'user_id' => $request->user_id,
+            'festival_id' => $request->festival_id,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.registrations')->with('success', 'Registration updated successfully');
+    }
+    public function deleteRegistration(\App\Models\UserFestivalRegistration $registration) {
+        $registration->delete();
+
+        return redirect()->route("admin.registrations")->with("success", "User Festival Registration deleted successfully");
     }
 
     //Drivers
