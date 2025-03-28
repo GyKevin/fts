@@ -4,7 +4,7 @@
             {{ __('My Bookings') }}
         </h2>
     </x-slot>
-    <div class="flex flex-wrap flex-col lg:flex-row items-center">
+    <div class="flex flex-wrap flex-col lg:flex-row items-center justify-center">
         @foreach ($registrations as $registration)
             <div class="bg-gray-800 text-white rounded-xl w-5/6 lg:w-1/4 h-96 m-4">
                 <div class="rounded-t-xl h-48 overflow-hidden">

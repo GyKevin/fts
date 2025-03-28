@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         // user seeder
         User::create([
             'id' => 1,
-            'first_name' => 'Kevin',
-            'last_name'=> 'Gyori',
-            'email'=> 'kevin@gmail.com',
+            'first_name' => 'Anton',
+            'last_name'=> 'Dahmer',
+            'email'=> 'anton@gmail.com',
             'age' => '22',
             'password' => 'password123',
             'phone' => '0612345678',

@@ -4,7 +4,7 @@
             {{ __('Festivals') }}
         </h2>
 </x-slot>
-<div class="flex flex-wrap flex-col md:flex-row items-center">
+<div class="flex flex-wrap flex-col md:flex-row items-center justify-center">
     @foreach ($festivals as $festival)
         <div class="bg-gray-800 text-white rounded-xl w-5/6 md:w-1/4 h-96 m-4 drop-shadow-lg">
             <div class="rounded-t-xl h-64 overflow-hidden border-b-2 border-gray-600">
