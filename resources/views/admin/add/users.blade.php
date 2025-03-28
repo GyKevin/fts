@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="flex flex-nowrap justify-center p-4">
-        <div class="flex flex-col  p-4 w-1/2 bg-gray-800 rounded-xl">
+        <div class="flex flex-col p-4 w-5/6 md:w-1/2 bg-gray-800 rounded-xl">
             <h2 class="font-bold text-white text-2xl">Add Users</h2>
                 <form action="{{route("admin.store.users")}}" method="POST" class="flex flex-col text-gray-400">
                     @csrf

@@ -4,9 +4,9 @@
             {{ __('My Bookings') }}
         </h2>
     </x-slot>
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap flex-col lg:flex-row items-center">
         @foreach ($registrations as $registration)
-            <div class="bg-gray-800 text-white rounded-xl w-1/4 h-96 m-4">
+            <div class="bg-gray-800 text-white rounded-xl w-5/6 lg:w-1/4 h-96 m-4">
                 <div class="rounded-t-xl h-48 overflow-hidden">
                     <img class="rounded-t-xl w-full h-full object-cover" src="{{ asset('storage/img/placeholder.jpg') }}" alt="Description">
                 </div>

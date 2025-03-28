@@ -4,7 +4,7 @@
         <div class="relative h-96 border-b border-gray-600">
             <img class="w-full h-full object-cover" src="{{ asset('storage/img/homepage-header.png') }}" alt="">
             <div class="absolute inset-0 bg-black/30 backdrop-blur-sm flex flex-col items-center justify-center">
-                <h1 class="font-bold text-6xl text-white">Festival Travel System</h1>
+                <h1 class="font-bold text-3xl sm:text-4xl md:text-6xl text-white">Festival Travel System</h1>
                 <form method="GET" action="{{ route('home') }}" class="relative w-1/2 mt-4">
                     <input 
                         type="text" name="search" placeholder="Search for festivals" value="{{ request('search') }}" 
@@ -18,9 +18,9 @@
             </div>
         </div>
         {{-- current festivals with bookable busses --}}
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap flex-col md:flex-row items-center">
             @foreach ($festivals as $festival)
-                <div class="bg-gray-800 text-white rounded-xl w-1/4 h-96 m-4 drop-shadow-lg">
+                <div class="bg-gray-800 text-white rounded-xl w-5/6 md:w-1/4 h-96 m-4 drop-shadow-lg">
                     <div class="rounded-t-xl h-64 overflow-hidden border-b-2 border-gray-600">
                         <img class="rounded-t-xl w-full h-full object-cover" src="{{ asset('storage/img/placeholder.jpg') }}" alt="Description">
                     </div>

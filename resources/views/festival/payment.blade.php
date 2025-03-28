@@ -22,7 +22,7 @@
         <button type="submit" class="text-white">Pay Now</button>
     </form> --}}
     <div class="flex flex-nowrap justify-center p-4">
-        <div class="flex flex-col  p-4 w-1/2 bg-gray-800 rounded-xl text-gray-400">
+        <div class="flex flex-col  p-4 w-5/6 md:w-1/2 bg-gray-800 rounded-xl text-gray-400">
             <h2 class="font-bold text-white text-2xl">Confirm Booking Payment</h2>
             <div>
                 <h4 class="font-bold text-xl">Booking details:</h4>
