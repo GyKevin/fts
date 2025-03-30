@@ -22,6 +22,7 @@
                             <p>Max participants: {{$festival->max_participants}}</p>
                             <p>Registration Deadline: {{$festival->registration_deadline}}</p>
                         </div>
+                        <h2 class="text-gray-200 text-lg font-bold">Description</h2>
                         <div class="border-t border-gray-600">
                             <p>{{ $festival->description }}</p>
                         </div>
@@ -47,7 +48,7 @@
                                 <p>No busses available for this festival.</p>
                             @endif
                             @else
-                            <p class="text-white">log in to book a bus.</p>
+                            <p class="text-red-500">Log in to book a bus.</p>
                             @endif
                         
                     

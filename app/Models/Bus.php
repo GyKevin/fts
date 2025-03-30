@@ -10,7 +10,7 @@ class Bus extends Model {
     protected $fillable = [
         'bus_number', 'festival_id', 'driver_id', 'date', 'location',
         'departure_time', 'arrival_time', 'total_seats', 
-        'available_seats', 'price'
+        'available_seats', 'price', 'status'
     ];
 
     public function festival() {

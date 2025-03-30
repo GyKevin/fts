@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Driver extends Model {
-    protected $fillable = ['user_id', 'license_number', 'license_expiry'];
+    protected $fillable = ['user_id','first_name', 'last_name', 'license_number', 'license_expiry'];
 
     public function user() {
         return $this->belongsTo(User::class);
