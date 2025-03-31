@@ -6,7 +6,7 @@
     </x-slot>
     <div class="flex flex-wrap flex-col lg:flex-row items-center justify-center">
         @foreach ($registrations as $registration)
-            <div class="bg-gray-800 text-white rounded-xl w-5/6 lg:w-1/4 h-96 m-4">
+            <div class="bg-gray-800 text-white rounded-xl w-5/6 lg:w-1/4 h-full m-4">
                 <div class="rounded-t-xl h-48 overflow-hidden">
                     <img class="rounded-t-xl w-full h-full object-cover" src="{{ asset('storage/img/placeholder.jpg') }}" alt="Description">
                 </div>
@@ -19,7 +19,10 @@
                     <p class="text-gray-400">Departure: {{$registration->bus->departure_time}}</p>
                     <p class="text-gray-400">Arrival: {{$registration->bus->arrival_time}}</p>
                     <p class="text-gray-400">Registered on: {{$registration->registration_date}}</p>
-                    <p class="text-gray-400">Status: {{$registration->status}}</p>
+                    <p class="text-gray-400">Total seats: {{$registration->bus->total_seats}}</p>
+                    <p class="text-gray-400">Available seats: {{$registration->bus->available_seats}}</p>
+                    <p class="text-gray-400">Bus status: {{$registration->bus->status}}</p>
+                    <p class="text-gray-400">Payment Status: {{$registration->status}}</p>
                 </div>
             </div>
         @endforeach

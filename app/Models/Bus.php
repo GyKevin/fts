@@ -28,4 +28,20 @@ class Bus extends Model {
     public function payments() {
         return $this->hasMany(Payment::class);
     }
+    public function getTakenSeatsAttribute()
+    {
+        return $this->total_seats - $this->available_seats;
+    }
+
+    public function shouldBeConfirmed()
+    {
+        return $this->taken_seats >= 35;
+    }
+
+    public function updateStatus()
+    {
+        $newStatus = $this->shouldBeConfirmed() ? 'confirmed' : 'pending';
+        $this->update(['status' => $newStatus]);
+        return $this;
+    }
 }

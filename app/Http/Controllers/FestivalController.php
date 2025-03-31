@@ -78,29 +78,40 @@ class FestivalController extends Controller
     public function book(Request $request, Festival $festival) {
         $user = Auth::user();
         $bus = Bus::findOrFail($request->bus_id);
-
+    
         $request->validate([
             'bus_id' => ['required', 'exists:buses,id'],
             'use_points' => ['nullable', 'boolean']
         ]);
-
+    
+        // Check seat availability
+        if ($bus->available_seats <= 0) {
+            return back()->with('error', 'This bus is fully booked');
+        }
+    
         $price = $bus->price;
         $pointsChange = 10;
         $usePoints = $request->boolean('use_points');
-
+    
         if ($usePoints && $user->points >= 20) {
             $price = $bus->price * 0.85;
             $pointsChange = -20;
         }
-
+    
         DB::transaction(function () use ($festival, $bus, $user, $price, $pointsChange) {
+            // Calculate seats after this booking
+            $takenSeats = $bus->total_seats - ($bus->available_seats - 1);
+            $isConfirmed = $takenSeats >= 35;
+    
+            // Create the registration
             UserFestivalRegistration::create([
                 'user_id' => $user->id,
                 'festival_id' => $festival->id,
                 'bus_id' => $bus->id,
-                'status' => 'confirmed'
+                'status' => $isConfirmed ? 'confirmed' : 'pending'
             ]);
-
+    
+            // Create payment record
             Payment::create([
                 'user_id' => $user->id,
                 'festival_id' => $festival->id,
@@ -109,14 +120,26 @@ class FestivalController extends Controller
                 'status' => 'completed',
                 'payment_method' => 'card'
             ]);
-
+    
+            // Update bus seats and status
             $bus->decrement('available_seats');
-
+            
+            if ($isConfirmed) {
+                $bus->update(['status' => 'confirmed']);
+                
+                // Update all pending registrations for this bus
+                UserFestivalRegistration::where('bus_id', $bus->id)
+                    ->where('status', 'pending')
+                    ->update(['status' => 'confirmed']);
+            }
+    
+            // Update user points
             $user->increment('points', $pointsChange);
         });
-
+    
         return redirect()->route('festival.show', $festival)
-            ->with('success', 'Your trip has been booked successfully!');
+            ->with('success', 'Booking successful! Status: ' . 
+                  ($bus->fresh()->available_seats <= ($bus->total_seats - 35) ? 'Confirmed' : 'Pending'));
     }
 
     /**

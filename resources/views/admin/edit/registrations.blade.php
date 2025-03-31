@@ -15,7 +15,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Bus</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Departure</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Arrival</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Bus Status</th>
                         </tr>
                     </thead>
                     <tbody class="bg-gray-800 divide-y divide-gray-700">
@@ -35,9 +35,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                     <span class="px-2 py-1 rounded-full text-xs 
-                                        {{ $registration->status === 'confirmed' ? 'bg-green-500' : 
-                                           ($registration->status === 'cancelled' ? 'bg-red-500' : 'bg-yellow-500') }}">
-                                        {{ ucfirst($registration->status) }}
+                                        {{ $registration->bus->status === 'confirmed' ? 'bg-green-500' : 
+                                           ($registration->bus->status === 'not confirmed' ? 'bg-red-500' : 'bg-yellow-500') }}">
+                                        {{ ucfirst($registration->bus->status) }}
                                     </span>
                                 </td>
                             </tr>
