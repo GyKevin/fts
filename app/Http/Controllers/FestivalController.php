@@ -90,25 +90,23 @@ class FestivalController extends Controller
         }
     
         $price = $bus->price;
-        $pointsChange = 10;
+        $pointsUsed = 0;
         $usePoints = $request->boolean('use_points');
     
         if ($usePoints && $user->points >= 20) {
             $price = $bus->price * 0.85;
-            $pointsChange = -20;
+            $pointsUsed = 20; // Track points used
         }
     
-        DB::transaction(function () use ($festival, $bus, $user, $price, $pointsChange) {
-            // Calculate seats after this booking
-            $takenSeats = $bus->total_seats - ($bus->available_seats - 1);
-            $isConfirmed = $takenSeats >= 35;
-    
-            // Create the registration
-            UserFestivalRegistration::create([
+        DB::transaction(function () use ($festival, $bus, $user, $price, $pointsUsed, $usePoints) {
+            // Create the registration with points tracking
+            $registration = UserFestivalRegistration::create([
                 'user_id' => $user->id,
                 'festival_id' => $festival->id,
                 'bus_id' => $bus->id,
-                'status' => $isConfirmed ? 'confirmed' : 'pending'
+                'status' => 'pending',
+                'points_used' => $pointsUsed,
+                'used_points_discount' => $usePoints
             ]);
     
             // Create payment record
@@ -121,25 +119,47 @@ class FestivalController extends Controller
                 'payment_method' => 'card'
             ]);
     
-            // Update bus seats and status
+            // Update bus seats
             $bus->decrement('available_seats');
-            
-            if ($isConfirmed) {
-                $bus->update(['status' => 'confirmed']);
-                
-                // Update all pending registrations for this bus
-                UserFestivalRegistration::where('bus_id', $bus->id)
-                    ->where('status', 'pending')
-                    ->update(['status' => 'confirmed']);
+    
+            // Calculate dynamic threshold
+            $threshold = $this->calculateConfirmationThreshold($bus);
+    
+            // Check if we've reached the threshold
+            $takenSeats = $bus->total_seats - $bus->available_seats;
+            if ($takenSeats >= $threshold) {
+                $this->confirmBusAndRegistrations($bus);
             }
     
-            // Update user points
-            $user->increment('points', $pointsChange);
+            // Update user points if they used any
+            if ($pointsUsed > 0) {
+                $user->decrement('points', $pointsUsed);
+            } else {
+                $user->increment('points', 10); // Standard points earning
+            }
         });
     
         return redirect()->route('festival.show', $festival)
-            ->with('success', 'Booking successful! Status: ' . 
-                  ($bus->fresh()->available_seats <= ($bus->total_seats - 35) ? 'Confirmed' : 'Pending'));
+            ->with('success', 'Booking successful! Your status is pending confirmation.');
+    }
+    protected function calculateConfirmationThreshold(Bus $bus): int {
+        // Count how many registrations used points
+        $pointsRedemptions = UserFestivalRegistration::where('bus_id', $bus->id)
+            ->where('used_points_discount', true)
+            ->count();
+
+        // Adjust threshold if 10+ students used points
+        return ($pointsRedemptions >= 10) ? 40 : 35;
+    }
+
+    protected function confirmBusAndRegistrations(Bus $bus) {
+        // Update bus status
+        $bus->update(['status' => 'confirmed']);
+        
+        // Update all pending registrations
+        UserFestivalRegistration::where('bus_id', $bus->id)
+            ->where('status', 'pending')
+            ->update(['status' => 'confirmed']);
     }
 
     /**
