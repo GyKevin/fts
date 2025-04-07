@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function dashboard() {
-        // $users = \App\Models\User::all();
-
         return view("admin.dashboard");
     }
 
@@ -40,7 +38,6 @@ class AdminController extends Controller
     }
     public function deleteUser(\App\Models\User $user) {
         $user->delete();
-
         return redirect()->route("admin.users")->with("success", "User deleted successfully");
     }
     public function storeUser(Request $request) {
@@ -79,9 +76,8 @@ class AdminController extends Controller
     }
     public function editRegistration(\App\Models\UserFestivalRegistration $registration)
     {
-        // Eager load all necessary relationships
         $registration->load([
-            'user', // This loads the user relationship
+            'user',
             'festival', 
             'bus.driver'
         ]);
@@ -181,7 +177,6 @@ class AdminController extends Controller
             "registration_deadline" => "nullable|date",
         ]);
 
-        // dd($validateData);
         \App\Models\Festival::create($validateData);
 
         return redirect()->route("admin.festivals")->with("success", "Festival created successfully");

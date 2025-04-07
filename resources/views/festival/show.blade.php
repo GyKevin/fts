@@ -26,6 +26,7 @@
                         <div class="border-t border-gray-600">
                             <p>{{ $festival->description }}</p>
                         </div>
+                        {{-- check if the user is looged in, if they are, show busses --}}
                         <div class="w-full">
                             @if (auth()->check())
                             @if($festival->buses->count() > 0)
@@ -51,7 +52,7 @@
                             <p class="text-red-500">Log in to book a bus.</p>
                             @endif
                         
-                    
+                    {{-- if the bus has been booked, return with a success --}}
                             @if(session('success'))
                                 <div class="alert alert-success">
                                     {{ session('success') }}
