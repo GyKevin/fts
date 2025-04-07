@@ -5,7 +5,20 @@
                 <form action="{{route('admin.update.busses', $bus->id)}}" method="post" class="flex flex-col text-gray-400">
                     @csrf
                     @method('PUT')
-                    <label for="bus_number">Bus Number:</label>
+
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                {{-- input fields --}}
+                <label for="bus_number">Bus Number:</label>
                 <input type="text" name="bus_number" id="bus_number" value="{{ $bus->bus_number }}" required>
                 
                 <label for="festival_id">Festival:</label>

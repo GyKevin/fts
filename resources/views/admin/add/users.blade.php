@@ -16,6 +16,7 @@
                         </div>
                     @endif
 
+                    {{-- input fields --}}
                     <label for="first_name">First Name</label>
                     <input type="text" name="first_name" value="{{old('first_name')}}" required>
 
@@ -35,7 +36,11 @@
                     <input type="text" name="phone" value="{{old('phone')}}">
 
                     <label for="role">Role</label>
-                    <input type="text" name="role" value="{{old('role')}}" required>
+                    {{-- <input type="text" name="role" value="{{old('role')}}" required> --}}
+                    <select name="role" id="role" required>
+                        <option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                    </select>
 
                     <label for="student_number">Student Number</label>
                     <input type="text" name="student_number" value="{{old('student_number')}}">

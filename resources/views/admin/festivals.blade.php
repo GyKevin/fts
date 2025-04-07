@@ -4,6 +4,7 @@
             <h2 class="font-bold text-white text-2xl mb-6">Select Festivals</h2>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-700">
+                    {{-- type of data --}}
                     <thead class="bg-gray-700">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Festivals</th>
@@ -11,6 +12,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
                         </tr>
                     </thead>
+                    {{-- data --}}
                     <tbody class="bg-gray-800 divide-y divide-gray-700">
                         @foreach($festivals as $festival)
                             <tr class="hover:bg-gray-700 transition duration-150 ease-in-out">

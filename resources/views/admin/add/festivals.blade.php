@@ -4,6 +4,19 @@
             <h2 class="font-bold text-white text-2xl">Add Festivals</h2>
                 <form action="{{route('admin.store.festivals')}}" method="post" class="flex flex-col text-gray-400">
                     @csrf
+
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    
+                    {{-- input fields --}}
                     <label for="festival_name"> Festival Name</label>
                     <input type="text" name="festival_name" required>
 

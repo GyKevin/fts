@@ -5,8 +5,19 @@
                 <form action="{{route('admin.update.drivers', $driver->id)}}" method="post" class="flex flex-col text-gray-400">
                     @csrf
                     @method('PUT')
-                    {{-- <p>id: {{$driver->id}}</p> --}}
+                    
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
+                    {{-- input fields --}}
                     <label for="id">ID/label> </label>
                     <input class="text-black" type="text" name="id" value="{{$driver->id}}" readonly required>
 

@@ -5,6 +5,19 @@
     <form action="{{route('admin.update.users', $user->id)}}" method="post" class="flex flex-col text-gray-400">
         @csrf
         @method('PUT')
+
+        <!-- Display validation errors -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        {{-- input fields --}}
         <label for="first_name">First Name</label>
         <input type="text" name="first_name" value="{{$user->first_name}}" required>
 
@@ -21,7 +34,10 @@
         <input type="text" name="phone" value="{{$user->phone}}">
 
         <label for="role">Role</label>
-        <input type="text" name="role" value="{{$user->role}}" required>
+        <select name="role" id="role" required>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+        </select>
 
         <label for="student_number">Student Number</label>
         <input type="text" name="student_number" value="{{$user->student_number}}">

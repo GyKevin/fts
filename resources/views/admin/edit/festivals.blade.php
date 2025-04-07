@@ -5,11 +5,24 @@
                 <form action="{{route('admin.update.festivals', $festival->id)}}" method="post" class="flex flex-col text-gray-400">
                     @csrf
                     @method('PUT')
+
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    {{-- input fields --}}
                     <label for="festival_name">Festival Name</label>
                     <input type="text" name="festival_name" value="{{$festival->festival_name}}">
 
                     <label for="date">Festival Date</label>
-                    <input type="text" name="date" value="{{$festival->date}}">
+                    <input type="date" name="date" value="{{$festival->date}}">
 
                     <label for="location">Festival Location</label>
                     <input type="text" name="location" value="{{$festival->location}}">

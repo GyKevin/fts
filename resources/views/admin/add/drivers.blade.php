@@ -16,6 +16,7 @@
                         </div>
                     @endif
 
+                    {{-- input fields --}}
                     <label for="license_number">License Number</label>
                     <input type="text" name="license_number" value="{{old('license_number')}}" required>
 

@@ -16,6 +16,7 @@
                 </div>
             @endif
 
+            {{-- input fields --}}
             <label for="bus_number">Bus Number:</label>
             <input type="text" name="bus_number" id="bus_number" value="{{ old('bus_number') }}" required>
             

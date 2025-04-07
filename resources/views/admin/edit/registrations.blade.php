@@ -1,6 +1,6 @@
 <x-app-layout>
+    {{-- no input fields here because i don't want the reservations to be editable --}}
     <div class="container mx-auto px-4 py-8">
-
         @if ($registrations->isEmpty())
             <p class="text-gray-500">No reservations found.</p>
         @else
